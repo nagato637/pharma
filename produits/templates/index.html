@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+</head>
+<body>
+    <nav class="minimal-menu">
+        <button id="backHomeBtn" title="home"><span class="material-icons"></span></button>
+    </nav>
+    <h1>products</h1>
+    <ul>
+        {% for produit in produits %}
+            <li>{{ produit.nom }} - {{ produit.prix }} €</li>
+        {% endfor %}
+    </ul>
+    <a href="">Ajouter un produit</a>
+    <a href="">Modifier le produit</a>
+</body>
+</html>
