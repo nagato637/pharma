@@ -3,12 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- lien pour icon font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Product Catalog</title>
 </head>
 <body>
     <nav class="minimal-menu">
-        <button id="backHomeBtn" title="home"><span class="material-icons"></span></button>
+        <button id="backHomeBtn" title="home">
+            <span class="material-icons"><i class="fa-solid fa-chevron-left"></i></span>
+        </button>
+        <div class="menu-search">
+            <span class="material-icons search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input id="searchInput" type="text" placeholder="Search products..." autocomplete="off">
+        </div>
+        <button id="filtersToggleBtn" title="Filters">
+            <span class="material-icons">filter_list</span>
+        </button>
+        <button id="displayModeBtn" title="Display mode">
+            <span class="material-icons" id="displayModeIcon">view_module</span>
+        </button>
+        <button class="create-btn" id="createProductBtn" title="Add product">
+            <span class="material-icons">add</span>
+        </button>
     </nav>
+
+    <div id="filtersPanel" class="filters-panel hidden">
+        <div class="filter-row">
+            <label for="filterCategory">Category:</label>
+            <select id="filterCategory">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="filter-row">
+            <label for="filterExpiry">Expires before:</label>
+            <input id="filterExpiry" type="date">
+        </div>
+        <div class="filter-row">
+            <label for="filterStock">Stock:</label>
+            <select id="filterStock">
+                <option value="">All</option>
+                <option value="out">Out of stock</option>
+                <option value="in">In stock</option>
+          </select>
+        </div>
+        <div class="filter-row">
+            <label for="filterPromo">On promotion:</label>
+            <select id="filterPromo">
+                <option value="">All</option>
+                <option value="yes">On promotion</option>
+          </select>
+        </div>
+        <div class="filter-row">
+            <label for="sortPrice">Sort by price:</label>
+            <select id="sortPrice">
+                <option value="">None</option>
+                <option value="asc">Cheapest first</option>
+                <option value="desc">Most expensive first</option>
+          </select>
+        </div>
+        <button class="action-btn" id="resetFiltersBtn" style="margin-top:8px;">Reset filters</button>
+    </div>
     <h1>products</h1>
     <ul>
         {% for produit in produits %}
