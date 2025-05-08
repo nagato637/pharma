@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # path('', views.index, name='index'), # Page d'accueil
-    path('', HomeView.as_view(), name='product'),                           # Liste des produits
-    path('add/', views.addProduct, name='add'),                             # Ajouter un produit
+    path('', HomeView.as_view(), name='index'),                             # liste des produits
+    path('add/', AddProduct.as_view(), name='add'),                         # ajouter un produit
 
-] + static (settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)         # Pour afficher les images dans le navigateur
+] + static (settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)         # pour afficher les images dans le navigateur
