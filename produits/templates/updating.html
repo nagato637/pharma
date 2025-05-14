@@ -3,9 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>update product</title>
+    <style>
+        body { font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background: #4caf50; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        h1 { text-align: center; color: #4caf50; }
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #ccc; }
+        .form-group .form-control { width: 100%; padding: 5px; border-radius: 5px; border: 1px solid #ccc; }
+        .form-group .form-control:focus { border-color: #4caf50; outline: none; }
+        .form-group .error { color: #ff0000; font-size: 12px; }
+        button { background: #4caf50; color: #fff; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #45a049; }
+        .messages { list-style: none; padding: 0; margin: 0; }
+    </style>
 </head>
 <body>
-    <main></main>
+    <main>
+        <div class="back">
+            <span class="icon"><i class="fa-solid fa-chevron-left"></i></span>
+        </div>
+
+        <section class="form-product">
+            <div class="container">
+                <h1>modify product</h1>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <!-- {% csrf_token %} -->
+
+                    <!-- {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message }}" {% endif %} style="color: #ff0000; font-weight: 600;"> {{ message }} </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} -->
+                    
+                    <div class="form-group">
+                        <label for="name">product name</label>
+                        <!-- {{ form.name }} -->
+                        <input id="firstname" class="form-control" type="text" placeholder="product name" />
+                        <!-- <div class="text-danger"> {{ form.name.errors }} </div> -->
+                        <!-- {% if form.name.errors %} <div class="error"> {{ errors.name }} </div> {% endif %} -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">product category</label>
+                        <!-- {{ form.category }} -->
+                        <select name="category" id="category" class="form-control"><option value="category"></option></select>
+                        <!-- <div class="text-danger"> {{ form.category.errors }} </div> -->
+                        <!-- {% if form.category.errors %} <div class="error"> {{ errors.category }} </div> {% endif %} -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">product description</label>
+                        <!-- {{ form.description }} -->
+                        <textarea id="firstname" class="form-control" type="text" placeholder="description"></textarea>
+                        <!-- <div class="text-danger"> {{ form.description.errors }} </div> -->
+                        <!-- {% if form.description.errors %} <div class="error"> {{ errors.description }} </div> {% endif %} -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">product quantity</label>
+                        <!-- {{ form.quantity }} -->
+                        <input id="firstname" class="form-control" type="number" placeholder="product quantity" />
+                        <!-- <div class="text-danger"> {{ form.quantity.errors }} </div> -->
+                        <!-- {% if form.quantity.errors %} <div class="error"> {{ errors.quantity }} </div> {% endif %} -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">product price</label>
+                        <!-- {{ form.price }} -->
+                        <input id="firstname" class="form-control" type="number" placeholder="product price" />
+                        <!-- <div class="text-danger"> {{ form.price.errors }} </div> -->
+                        <!-- {% if form.price.errors %} <div cpricelass="error"> {{ errors.price }} </div> {% endif %} -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expirydate">product expirydate</label>
+                        <!-- {{ form.exexpirydate }} -->
+                        <input id="firstname" class="form-control" type="date" placeholder="product expirydate" />
+                        <!-- <div class="text-danger"> {{ form.expirydate.errors }} </div> -->
+                        <!-- {% if form.expirydate.errors %} <div class="error"> {{ errors.expirydate }} </div> {% endif %} -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">product image</label>
+                        <!-- {{ form.image }} -->
+                        <input id="firstname" class="form-control" type="files" placeholder="product image" />
+                        <!-- <div class="text-danger"> {{ form.image.errors }} </div> -->
+                        <!-- {% if form.image.errors %} <div class="error"> {{ errors.image }} </div> {% endif %} -->
+                    </div>
+                    
+                    <!-- {{ form.as_p }} -->
+
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
 </body>
 </html>
