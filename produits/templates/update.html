@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>add product</title>
+    <title>update product</title>
     <style>
         body { font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; background: #4caf50; margin: 0; padding: 20px; }
         .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
@@ -27,7 +27,7 @@
 
         <section class="form-product">
             <div class="container">
-                <h1>add product</h1>
+                <h1>modify product</h1>
                 <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
@@ -41,51 +41,44 @@
                     
                     <div class="form-group">
                         <label for="name">product name</label>
-                        {{ form.name }}
-                        <div class="text-danger"> {{ form.name.errors }} </div>
-                        {% if form.name.errors %} <div class="error"> {{ errors.name }} </div> {% endif %}
+                        <input id="name" class="form-control" value="{{ product.name }}" type="text" placeholder="product name" />
                     </div>
 
                     <div class="form-group">
                         <label for="category">product category</label>
-                        {{ form.category }}
-                        <div class="text-danger"> {{ form.category.errors }} </div>
-                        {% if form.category.errors %} <div class="error"> {{ errors.category }} </div> {% endif %}
+                        <select name="category" id="category" class="form-control">
+                            {% for category in categories %}
+                            <option value="{{ category.id }}" {% if category.id == product.category.id %} selected {% endif %}> {{ category.name }} </option>
+                            {% endfor %}
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="description">product description</label>
-                        {{ form.description }}
-                        <div class="text-danger"> {{ form.description.errors }} </div>
-                        {% if form.description.errors %} <div class="error"> {{ errors.description }} </div> {% endif %}
+                        <textarea id="description" name="description" value="{{ product.expiryDate }}" class="form-control" type="text" placeholder="description"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="quantity">product quantity</label>
-                        {{ form.quantity }}
-                        <div class="text-danger"> {{ form.quantity.errors }} </div>
-                        {% if form.quantity.errors %} <div class="error"> {{ errors.quantity }} </div> {% endif %}
+                        <input id="quantity" name="quantity" value="{{ product.quantity }}" class="form-control" type="number" placeholder="product quantity" />
                     </div>
 
                     <div class="form-group">
                         <label for="price">product price</label>
-                        {{ form.price }}
-                        <div class="text-danger"> {{ form.price.errors }} </div>
-                        {% if form.price.errors %} <div cpricelass="error"> {{ errors.price }} </div> {% endif %}
+                        <input id="price" class="form-control" name="price" value="{{ product.price }}" type="number" placeholder="product price" />
                     </div>
 
                     <div class="form-group">
-                        <label for="expiryDate">product expiry date</label>
-                        {{ form.expiryDate }}
-                        <div class="text-danger"> {{ form.expiryDate.errors }} </div>
-                        {% if form.expiryDate.errors %} <div class="error"> {{ errors.expiryDate }} </div> {% endif %}
+                        <label for="expirydate">product expirydate</label>
+                        <input id="exexpiryDate" name="expiryDate" value="{{ product.expiryDate }}" class="form-control" type="date" placeholder="product expirydate" />
                     </div>
 
                     <div class="form-group">
                         <label for="image">product image</label>
-                        {{ form.image }}
-                        <div class="text-danger"> {{ form.image.errors }} </div>
-                        {% if form.image.errors %} <div class="error"> {{ errors.image }} </div> {% endif %}
+                        <input id="image" name="image" class="form-control" type="files" placeholder="product image" />
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="img" style="max-width: 50px; max-height: 50px;" />
+                        {% endif %}
                     </div>
 
                     <button type="submit">Save</button>

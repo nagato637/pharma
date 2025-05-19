@@ -22,86 +22,69 @@
 <body>
     <main>
         <div class="back">
-            <span class="icon"><i class="fa-solid fa-chevron-left"></i></span>
+            <a href="{% url 'index' %}"><span class="icon"><i class="fa-solid fa-chevron-left"></i></span></a>
         </div>
 
         <section class="form-product">
             <div class="container">
                 <h1>modify product</h1>
                 <form action="" method="post" enctype="multipart/form-data">
-                    <!-- {% csrf_token %} -->
+                    {% csrf_token %}
 
-                    <!-- {% if messages %}
+                    {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
                         <li {% if message.tags %} class="{{ message }}" {% endif %} style="color: #ff0000; font-weight: 600;"> {{ message }} </li>
                         {% endfor %}
                     </ul>
-                    {% endif %} -->
+                    {% endif %}
                     
                     <div class="form-group">
                         <label for="name">product name</label>
-                        <!-- {{ form.name }} -->
-                        <input id="firstname" class="form-control" type="text" placeholder="product name" />
-                        <!-- <div class="text-danger"> {{ form.name.errors }} </div> -->
-                        <!-- {% if form.name.errors %} <div class="error"> {{ errors.name }} </div> {% endif %} -->
+                        <input id="name" name="name" class="form-control" value="{{ product.name }}" type="text" placeholder="product name" />
                     </div>
 
                     <div class="form-group">
                         <label for="category">product category</label>
-                        <!-- {{ form.category }} -->
-                        <select name="category" id="category" class="form-control"><option value="category"></option></select>
-                        <!-- <div class="text-danger"> {{ form.category.errors }} </div> -->
-                        <!-- {% if form.category.errors %} <div class="error"> {{ errors.category }} </div> {% endif %} -->
+                        <select name="category" id="category" class="form-control">
+                            {% for category in categories %}
+                            <option value="{{ category.id }}" {% if category.id == product.category.id %} selected {% endif %}> {{ category.name }} </option>
+                            {% endfor %}
+                        </select>
                     </div>
 
                     <div class="form-group">
                         <label for="description">product description</label>
-                        <!-- {{ form.description }} -->
-                        <textarea id="firstname" class="form-control" type="text" placeholder="description"></textarea>
-                        <!-- <div class="text-danger"> {{ form.description.errors }} </div> -->
-                        <!-- {% if form.description.errors %} <div class="error"> {{ errors.description }} </div> {% endif %} -->
+                        <textarea id="description" name="description" class="form-control" type="text" placeholder="description">{{ product.description }}</textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="quantity">product quantity</label>
-                        <!-- {{ form.quantity }} -->
-                        <input id="firstname" class="form-control" type="number" placeholder="product quantity" />
-                        <!-- <div class="text-danger"> {{ form.quantity.errors }} </div> -->
-                        <!-- {% if form.quantity.errors %} <div class="error"> {{ errors.quantity }} </div> {% endif %} -->
+                        <input id="quantity" name="quantity" value="{{ product.quantity }}" class="form-control" type="number" placeholder="product quantity" />
                     </div>
 
                     <div class="form-group">
                         <label for="price">product price</label>
-                        <!-- {{ form.price }} -->
-                        <input id="firstname" class="form-control" type="number" placeholder="product price" />
-                        <!-- <div class="text-danger"> {{ form.price.errors }} </div> -->
-                        <!-- {% if form.price.errors %} <div cpricelass="error"> {{ errors.price }} </div> {% endif %} -->
+                        <input id="price" class="form-control" name="price" value="{{ product.price }}" type="number" placeholder="product price" />
                     </div>
 
                     <div class="form-group">
                         <label for="expirydate">product expirydate</label>
-                        <!-- {{ form.exexpirydate }} -->
-                        <input id="firstname" class="form-control" type="date" placeholder="product expirydate" />
-                        <!-- <div class="text-danger"> {{ form.expirydate.errors }} </div> -->
-                        <!-- {% if form.expirydate.errors %} <div class="error"> {{ errors.expirydate }} </div> {% endif %} -->
+                        <input id="exexpiryDate" name="expiryDate" value="{{ product.expiryDate|date:'Y-m-d' }}" class="form-control" type="date" placeholder="product expirydate" />
                     </div>
 
                     <div class="form-group">
                         <label for="image">product image</label>
-                        <!-- {{ form.image }} -->
-                        <input id="firstname" class="form-control" type="files" placeholder="product image" />
-                        <!-- <div class="text-danger"> {{ form.image.errors }} </div> -->
-                        <!-- {% if form.image.errors %} <div class="error"> {{ errors.image }} </div> {% endif %} -->
+                        <input id="image" name="image" class="form-control" type="file" placeholder="product image" />
+                        {% if product.image %}
+                        <img src="{{ product.image }}" alt="img" style="max-width: 100px; max-height: 100px;" />
+                        {% endif %}
                     </div>
-                    
-                    <!-- {{ form.as_p }} -->
 
                     <button type="submit">Save</button>
                 </form>
             </div>
         </section>
     </main>
-    
 </body>
 </html>

@@ -11,7 +11,7 @@ class Product(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=12, decimal_places=2)
     quantity = models.PositiveBigIntegerField(default=0)
-    productDate = models.DateTimeField(auto_now_add=True)
+    productDate = models.DateTimeField(null=False, auto_now_add=True)
     expiryDate = models.DateField()
     image = models.ImageField(null=True, blank=True, upload_to='produits/products/')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

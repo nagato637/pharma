@@ -29,9 +29,9 @@
         <button id="displayModeBtn" title="Display mode">
             <span class="material-icons" id="displayModeIcon"><i class="fa-solid fa-list"></i></span>
         </button>
-        <button class="create-btn" id="createProductBtn" title="Add product">
+        <a href="{% url 'add' %}" class="create-btn" id="createProductBtn" title="Add product">
             <span class="material-icons"><i class="fa-solid fa-plus"></i></span>
-        </button>
+        </a>
     </nav>
 
     <div id="filtersPanel" class="filters-panel hidden">
@@ -75,12 +75,16 @@
         <div id="product-container"></div>
         <h1 class="title">products</h1>
         <div id="product-list" class="product-list">
-            <!-- Product items will be dynamically inserted here -->
             {% for product in products %}
             <h1 class="product-name">{{ product.name }}</h1>
-            <img class="product-image" src="{{ product.image }}" alt="{{ product.name }} image">
+            <img class="product-image" src="{{ product.image }}" alt="{{ product.name }} image" style="max-width: 150px; max-height: 150px;">
             <p class="product-description">{{ product.description }}</p>
             <span>quantity</span><span class="status active"> <button class="button {{ product.quantity_available }}"></button> {{ product.quantity }}</span>
+            <div class="btn-action">
+                <a href="{% url 'update' product.id %}" class="btn"><i class="fa-regular fa-pen-to-square"></i></a>
+                <a href="#" class="btn"><i class="fa-regular fa-eye"></i></a>
+                <a href="#" class="btn"><i class="fa-solid fa-trash"></i></a>
+            </div>
             {% endfor %}
         </div>
     </main>
