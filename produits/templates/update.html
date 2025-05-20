@@ -34,28 +34,28 @@
                     {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
-                        <li {% if message.tags %} class="{{ message }}" {% endif %} style="color: #ff0000; font-weight: 600;"> {{ message }} </li>
+                        <li {% if message.tags %} class="{{ message }}" {% endif %} style="color: #00ff00; font-weight: 600;"> {{ message }} </li>
                         {% endfor %}
                     </ul>
                     {% endif %}
                     
                     <div class="form-group">
                         <label for="name">product name</label>
-                        <input id="name" class="form-control" value="{{ product.name }}" type="text" placeholder="product name" />
+                        <input id="name" name="name" class="form-control" value="{{ product.name }}" type="text" placeholder="product name" />
                     </div>
 
                     <div class="form-group">
                         <label for="category">product category</label>
                         <select name="category" id="category" class="form-control">
                             {% for category in categories %}
-                            <option value="{{ category.id }}" {% if category.id == product.category.id %} selected {% endif %}> {{ category.name }} </option>
+                            <option value="{{ category.pk }}" {% if category.id == product.category.pk %} selected {% endif %}> {{ category.name }} </option>
                             {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="description">product description</label>
-                        <textarea id="description" name="description" value="{{ product.expiryDate }}" class="form-control" type="text" placeholder="description"></textarea>
+                        <textarea id="description" name="description" class="form-control" placeholder="description">{{ product.description }}</textarea>
                     </div>
 
                     <div class="form-group">
@@ -65,27 +65,31 @@
 
                     <div class="form-group">
                         <label for="price">product price</label>
-                        <input id="price" class="form-control" name="price" value="{{ product.price }}" type="number" placeholder="product price" />
+                        <input id="price" class="form-control" name="price" value="{{ product.price }}" placeholder="product price" />
                     </div>
 
                     <div class="form-group">
                         <label for="expirydate">product expirydate</label>
-                        <input id="exexpiryDate" name="expiryDate" value="{{ product.expiryDate }}" class="form-control" type="date" placeholder="product expirydate" />
+                        <input id="exexpiryDate" name="expiryDate" value="{{ product.expiryDate|date:'Y-m-d' }}" class="form-control" type="date" placeholder="product expirydate" />
                     </div>
 
                     <div class="form-group">
                         <label for="image">product image</label>
-                        <input id="image" name="image" class="form-control" type="files" placeholder="product image" />
+                        <input id="image" name="image" class="form-control" type="file" placeholder="product image" />
                         {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="img" style="max-width: 50px; max-height: 50px;" />
+                        <img src="{{ product.image }}" alt="img" style="max-width: 100px; max-height: 100px;" />
                         {% endif %}
                     </div>
 
-                    <button type="submit">Save</button>
+                    <button type="submit">Enregistrer</button>
                 </form>
+                {% for field in form %}
+                {% for error in field.errors %}
+                <p style="color:red">{{ error }}</p>
+                {% endfor %}
+                {% endfor %}
             </div>
         </section>
     </main>
-    
 </body>
 </html>

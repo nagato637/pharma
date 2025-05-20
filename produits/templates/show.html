@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>detail product</title>
+</head>
+<body>
+    <main>
+        <div class="back">
+            <a href="{% url 'index' %}"><span class="icon"><i class="fa-solid fa-chevron-left"></i></span></a>
+        </div>
+        <section class="product-detail">
+            <div class="container">
+                <h1>Product Details</h1>
+                <div class="product-info">
+                    <h2>{{ product.name }}</h2>
+                    <p><strong>Category:</strong> {{ product.category.name }}</p>
+                    <p><strong>Description:</strong> {{ product.description }}</p>
+                    <img class="product-image" src="{{ product.image }}" alt="{{ product.name }} image" style="max-width: 150px; max-height: 150px;">
+                    <p><strong>Price:</strong>$ {{ product.price }}</p>
+                    <p><strong>Stock:</strong> {{ product.quantity }}</p>
+                    <p><strong>Product Date:</strong> {{ product.productDate }} </p>
+                    <p><strong>Expiry Date:</strong> {{ product.expiryDate }}</p>
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {% endif %}
+                </div>
+            </div>
+    </main>
+</body>
+</html>
