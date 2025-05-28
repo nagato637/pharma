@@ -6,6 +6,7 @@
     <!-- lien pour icon font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Product Catalog</title>
+    
     <style>
         .button { padding: 5px 5px; border-radius: 10px; font-weight: bold; text-align: center; color: white; }
         .red { background-color: red; }
@@ -16,21 +17,21 @@
 <body>
 
     <nav class="minimal-menu">
-        <button id="backHomeBtn" title="home">
-            <span class="material-icons"><i class="fa-solid fa-chevron-left"></i></span>
-        </button>
+        <a href="{% url 'home' %}" id="backHomeBtn" title="home">H
+            <span class="material-icons">|<i class="fa-solid fa-chevron-left"></i></span>
+        </a>
         <div class="menu-search">
-            <span class="material-icons search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input id="searchInput" type="text" placeholder="Search products..." autocomplete="off">
+            <span class="material-icons search-icon">S<i class="fa-solid fa-magnifying-glass"></i></span>
+            <input id="searchInput" type="text" placeholder="Search products...">
         </div>
         <button id="filtersToggleBtn" title="Filters">
-            <span class="material-icons"><i class="fa-solid fa-filter"></i></span>
+            <span class="material-icons">F<i class="fa-solid fa-filter"></i></span>
         </button>
         <button id="displayModeBtn" title="Display mode">
-            <span class="material-icons" id="displayModeIcon"><i class="fa-solid fa-list"></i></span>
+            <span class="material-icons" id="displayModeIcon">D<i class="fa-solid fa-list"></i></span>
         </button>
-        <a href="{% url 'add' %}" class="create-btn" id="createProductBtn" title="Add product">
-            <span class="material-icons"><i class="fa-solid fa-plus"></i></span>
+        <a href="{% url 'produits:add' %}" class="create-btn" id="createProductBtn" title="Add product">
+            <span class="material-icons">A<i class="fa-solid fa-plus"></i></span>
         </a>
     </nav>
 
@@ -85,12 +86,26 @@
             <span>price: </span><span class="status active"> {{ product.price }}</span>
             <p class="product-date">expiry date : <span style="color: #ff0000;"> {{ product.expiryDate|date:'Y-m-d' }}</span></p>
             <div class="btn-action">
-                <a href="{% url 'update' product.pk %}" class="btn"><i class="fa-regular fa-pen-to-square"></i></a>
-                <a href="{% url 'show' product.pk %}" class="btn"><i class="fa-regular fa-eye"></i></a>
-                <a href="" class="btn"><i class="fa-solid fa-trash"></i></a>
+                <a href="{% url 'produits:update' product.pk %}" class="btn">U<i class="fa-regular fa-pen-to-square"></i></a>
+                <a href="{% url 'produits:show' product.pk %}" class="btn">S<i class="fa-regular fa-eye"></i></a>
+                <a href="{% url 'produits:delete' product.pk %}" class="btn">D<i class="fa-solid fa-trash"></i></a>
             </div>
             {% endfor %}
         </div>
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("searchInput");
+
+            searchInput.addEventListener("keyup", function() {
+                let query = searchInput.value.trim();
+
+                if (query.lenght > 2) {
+                    fetch(`/search/?product=${query}`).then(response => response.text()).then(data => { document.getElementById("product-list").innerHTML = data }).catch(error => console.log("erreur : ", error))
+                }
+            });
+        });
+    </script>
 </body>
 </html>

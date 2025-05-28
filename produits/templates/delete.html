@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>confirm delete</title>
+</head>
+<body>
+    <main>
+        <h1>confirm delete product</h1>
+        <p>are you sure to delete this product</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button type="submit" style="color: #ff0000;">yes</button>
+            <a href="" style="color: #00ff00;">no</a>
+        </form>
+    </main>
+</body>
+</html>

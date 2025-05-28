@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search</title>
+</head>
+<body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{ message.tags }" {% endif %} style="color: #0f0;"> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <main>
+        <h1 style="color: blue;">resultat de la recherche</h1>
+        <div id="product-list" class="product-list"></div>
+        {% for product in products %}
+            <h1 class="product-name">{{ product.name }}</h1>
+            <h3 class="product-category">{{ product.category }}</h3>
+            <img class="product-image" src="{{ product.image }}" alt="{{ product.name }} image" style="max-width: 150px; max-height: 150px;">
+            <p class="product-description">{{ product.description }}</p>
+            <p class="product-date">product date : <span style="color: #0000ff;"> {{ product.productDate|date:'Y-m-d' }} </span></p>
+            <span>quantity: </span><span class="status active"> <button class="button {{ product.quantity_available }}"></button> {{ product.quantity }}</span>
+            <span>price: </span><span class="status active"> {{ product.price }}</span>
+            <p class="product-date">expiry date : <span style="color: #ff0000;"> {{ product.expiryDate|date:'Y-m-d' }}</span></p>
+            <div class="btn-action">
+                <a href="{% url 'update' product.pk %}" class="btn"><i class="fa-regular fa-pen-to-square"></i></a>
+                <a href="{% url 'show' product.pk %}" class="btn"><i class="fa-regular fa-eye"></i></a>
+                <a href="{% url 'delete' product.pk %}" class="btn"><i class="fa-solid fa-trash"></i></a>
+            </div>
+        {% endfor %}
+    </main>
+</body>
+</html>
