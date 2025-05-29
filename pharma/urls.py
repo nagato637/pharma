@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('product/', include('produits.urls')),     # URL for the product app
-    path('user/', include('utilisateurs.urls')),    # URL for the product app
+    path('user/', include('utilisateurs.urls')),    # URL for the user app
 ]

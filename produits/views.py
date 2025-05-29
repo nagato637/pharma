@@ -3,6 +3,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DetailView, D
 from .models import *
 from .forms import *
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 class HomeView(ListView):
     template_name = 'index.html'
@@ -10,18 +12,20 @@ class HomeView(ListView):
     model = Product
     queryset = Product.objects.all()
 
-class AddProduct(CreateView):
+class AddProduct(LoginRequiredMixin, CreateView):
     model = Product
     template_name = 'adding.html'
     form_class = AddProductForm
     success_url = reverse_lazy('produits:index')
+    login_url = 'utilisateurs:login'
 
 # classe pour modifier un produit
-class UpdateProduct(UpdateView):
+class UpdateProduct(LoginRequiredMixin, UpdateView):
     model = Product
     template_name = 'update.html'
     form_class = AddProductForm
     success_url = reverse_lazy('produits:index')
+    login_url = 'utilisateurs:login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,10 +33,11 @@ class UpdateProduct(UpdateView):
         return context
 
 # class pour suppression de produit
-class DeleteProduct(DeleteView):
+class DeleteProduct(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('produits:index')
     template_name = 'confirm-delete.html'
+    login_url = 'utilisateurs:login'
 
 # class pour afficher le produit
 class ShowProduct(DetailView):

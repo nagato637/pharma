@@ -8,12 +8,19 @@
 </head>
 <body>
     <main>
+        <div class="user-info">
+            {% if user.is_authenticated %}
+            <p class="user-name"><span style="color: blue;">{{ user.username }}</span></p>
+            <a href="{% url 'utilisateurs:logout' %}" class="btn">deconnexion</a>
+            {% else %}
+            <p class="user-name"><span style="color: red">vous n'êtes pas connecter</span></p>
+            <a href="{% url 'utilisateurs:login' %}" class="btn">connexion</a>
+            <a href="{% url 'utilisateurs:register' %}" class="btn">inscription</a>
+            {% endif %}
+        </div>
         <div id="home">
             <h1 class="title">products</h1>
             <a href="{% url 'produits:index' %}" class="btn">voir les produits</a>
-            <a href="{% url 'utilisateurs:register' %}" class="btn">inscription</a>
-            <a href="{% url 'utilisateurs:login' %}" class="btn">connexion</a>
-            <a href="{% url 'utilisateurs:logout' %}" class="btn">deconnexion</a>
         </div>
     </main>
 </body>
