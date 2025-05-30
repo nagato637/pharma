@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -78,7 +78,7 @@ def check_mail(request):
 
         if not email:
             messages.error(request, 'email is required')
-            return redirect('')
+            return redirect('utilisateurs:check-mail')
         
         user = User.objects.filter(email=email).first()
 
@@ -86,7 +86,7 @@ def check_mail(request):
             return redirect('utilisateurs:reset-password', email=email)
         else:
             messages.error(request, 'email not found')
-            return redirect('')
+            return redirect('utilisateurs:check-mail')
         
     return render(request, 'checkmail.html')
 
@@ -102,18 +102,31 @@ def reset_password(request, email):
         password = request.POST.get('password')
         password_confirm = request.POST.get('password_confirm')
 
-        if password == password_confirm:
+        if not password or not password_confirm:
+            messages.error(request, 'passwords are required')
+            return render(request, 'reset_password.html', {'email': email})
 
-            if len(password) < 8 or not re.search(r'[A-Za-z]', password) or not re.search(r'\d', password) or not re.search(r'[!@#$%^&*()":;<>,.?/]', password):
-                messages.error(request, 'password must contain 8 characters, letters and numbers and special characters')
+        if password == password_confirm:
+            error_message = []
+            if len(password) < 8:
+                error_message.append('password must contain at least 8 characters')
+            if not re.search(r'[A-Za-z]', password):
+                error_message.append('password must contain at least one letter')
+            if not re.search(r'\d', password):
+                error_message.append('password must contain at least one number')
+            if not re.search(r'[!@#$%^&*()":;<>,.?/]', password):
+                error_message.append('password must contain at least one special character')
             
+            if not error_message:
+                user.set_password(password)
+                user.save()
+                messages.success(request, 'password changed successfully')
+                return redirect('utilisateurs:login')
+            else:
+                for msg in error_message:
+                    messages.error(request, msg)
+
         else:
-            user.set_password(password)
-            user.save()
-            messages.success(request, 'password changed successfully')
-            return redirect('utilisateurs:login')
-        
-    else:
-        messages.error(request, 'passwords are different')
+            messages.error(request, 'passwords are different')
 
     return render(request, 'reset_password.html', {'email': email})

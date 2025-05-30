@@ -16,7 +16,7 @@
             {{ form.as_p }}
             <input type="submit" value="login" class="btn">
             <a href="{% url 'utilisateurs:register' %}" class="btn">register</a>
-            <!-- <a href="{% url 'utilisateurs:password_reset' %}" class="btn">Forgot Password?</a> -->
+            <a href="{% url 'utilisateurs:check-mail' %}" class="btn">Forgot Password?</a>
         </form>
     </main>
 </body>

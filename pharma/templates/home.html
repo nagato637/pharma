@@ -13,7 +13,7 @@
             <p class="user-name"><span style="color: blue;">{{ user.username }}</span></p>
             <a href="{% url 'utilisateurs:logout' %}" class="btn">deconnexion</a>
             {% else %}
-            <p class="user-name"><span style="color: red">vous n'êtes pas connecter</span></p>
+            <p class="user-name"><span style="color: red">vous n'êtes pas connecté</span></p>
             <a href="{% url 'utilisateurs:login' %}" class="btn">connexion</a>
             <a href="{% url 'utilisateurs:register' %}" class="btn">inscription</a>
             {% endif %}
