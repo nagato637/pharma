@@ -89,6 +89,7 @@
                 <a href="{% url 'produits:update' product.pk %}" class="btn">U<i class="fa-regular fa-pen-to-square"></i></a>
                 <a href="{% url 'produits:show' product.pk %}" class="btn">S<i class="fa-regular fa-eye"></i></a>
                 <a href="{% url 'produits:delete' product.pk %}" class="btn">D<i class="fa-solid fa-trash"></i></a>
+                <a href="{% url 'ventes:add' product.id %}" class="btn">V<i class="fa-solid fa-trash"></i></a>
             </div>
             {% endfor %}
         </div>

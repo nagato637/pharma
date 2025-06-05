@@ -11,7 +11,7 @@ urlpatterns = [
     path('login/', views.signin, name='login'),                           # page de connexion
     path('register/', views.signup, name='register'),                     # page d'inscription
     # path('confirm-email', as_view(), name='confirm-email'),               # confirmer email
-    path('reset-password', views.reset_password, name='reset-password'),             # initialiser mot de passe
+    path('reset-password/<str:email>/', views.reset_password, name='reset-password'),             # initialiser mot de passe
     path('check-mail', views.check_mail, name='check-mail'),             # initialiser mot de passe
     # path('change-password', as_view(), name='change-passwor'),            # changer mot de passe
 

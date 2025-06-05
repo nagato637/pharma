@@ -30,19 +30,18 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-class Order (models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveBigIntegerField(default=1)
-    orderDate = models.DateTimeField(auto_now_add=True)
+# class Order (models.Model):
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     quantity = models.PositiveBigIntegerField(default=1)
+#     orderDate = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Order of {self.quantity} {self.product.name} on {self.orderDate}"
+#     def __str__(self):
+#         return f"Order of {self.quantity} {self.product.name} on {self.orderDate}"
     
 
-class Receipt(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    receiptDate = models.DateTimeField(auto_now_add=True)
+# class Receipt(models.Model):
+#     order = models.ForeignKey(Order, on_delete=models.CASCADE)
+#     receiptDate = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Receipt for {self.order.product.name} on {self.receiptDate}"
-    
+#     def __str__(self):
+#         return f"Receipt for {self.order.product.name} on {self.receiptDate}"

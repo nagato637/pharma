@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sales</title>
+</head>
+<body>
+    <main>
+        <div class="back">
+            <a href="{% url 'home' %}">B<span class="icon"><i class="fa-solid fa-chevron-left"></i></span></a>
+        </div>
+        <div id="sale-list" class="sale-list">
+            <h1 class="product-name">historiques des ventes</h1>
+
+            <table border="1" class="table">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>product</th>
+                        <th>price</th>
+                        <th>quantity</th>
+                        <th>amount total</th>
+                        <th>client</th>
+                        <th>date</th>
+                        <th>facture</th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in sales %}
+                    <tr>
+                        <td>{{ sale.id }}</td>
+                        <td>{{ sale.product.name }}</td>
+                        <td>{{ sale.product.price }}</td>
+                        <td>{{ sale.quantity }}</td>
+                        <td>{{ sale.total }}</td>
+                        <td>{{ sale.customer.fullname }}</td>
+                        <td>{{ sale.sale_date|date:'Y-m-d' }}</td>
+                        <td><a href="{% url 'ventes:invoice' sale.id %}" class="btn">F<i class="fa-solid fa-file-pdf"></i></a></td>
+                        <td><a href="#" class="btn">D<i class="fa-solid fa-trash"></i></a></td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="8" style="text-align: center;">Aucune vente enregistrée pour le moment.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

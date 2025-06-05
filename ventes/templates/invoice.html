@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>invoice</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .invoice-box {
+            width: 5.5in;
+            min-height: 8.5in;
+            padding: 40px;
+            border: 1px solid #eee;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .invoice-header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 48px;
+            color: #000;
+            text-align: center;
+            margin: 0 0 20px 0;
+        }
+        
+        .header-info, .customer-info, .payment-info {
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid black;
+            margin-bottom: -1px; /* Pour fusionner les bordures */
+        }
+        
+        .header-info div, .customer-info div, .payment-info div {
+            padding: 8px;
+            width: 50%;
+        }
+
+        .header-info div:first-child, .customer-info div:first-child, .payment-info div:first-child {
+            border-right: 1px solid black;
+        }
+
+        .customer-info .address {
+            min-height: 60px; /* Donne de l'espace pour l'adresse */
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .items-table th, .items-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .items-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+        
+        .items-table .description {
+            text-align: left;
+        }
+
+        .totals {
+            margin-top: 20px;
+            float: right;
+            width: 40%;
+        }
+
+        .totals .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        
+        .totals .row.total {
+            font-weight: bold;
+            border-top: 2px solid black;
+            margin-top: 5px;
+            padding-top: 5px;
+        }
+
+        .download-button-container {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+
+        .btn-download {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn-download:hover {
+            background-color: #218838;
+        }
+
+        /* Ces styles ne s'appliqueront que lors de l'impression */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .invoice-box {
+                box-shadow: none;
+                border: none;
+                width: 100%;
+                height: 100%;
+            }
+            .download-button-container {
+                display: none; /* Cache le bouton lors de l'impression */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="back">
+        <a href="{% url 'ventes:sales' %}">B<span class="icon"><i class="fa-solid fa-chevron-left"></i></span></a>
+    </div>
+    <main>
+        <div class="invoice-box">
+            <div class="invoice-header">
+                <h1>invoice</h1>
+            </div>
+
+            <div class="header-info">
+                <div><strong>date : </strong><br>{{ sale.sale_date|date:"Y-m-d" }}</div>
+                <div><strong>sale number : </strong><br>{{ sale.id }}</div>
+            </div>
+            <div class="customer-info">
+                <div class="address"><strong>name : </strong><br>{{ sale.customer.fullname }}<br><br><strong>address :</strong><br>customer address</div>
+                <div><strong>phone : </strong><br> customer phone<strong><br><br>email : </strong><br> customer email</div>
+            </div>
+            <div class="payment-info">
+                <div><strong>payment method : </strong><br> payment method</div>
+                <div><strong>payment status : </strong><br> payment status</div>
+            </div>
+
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>QTY</th>
+                        <th class="description">product</th>
+                        <th>price</th>
+                        <th>total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ sale.quantity }}</td>
+                        <td class="description">{{ sale.product.name }}</td>
+                        <td>{{ sale.product.price }}</td>
+                        <td>{{ sale.total }}</td>
+                    </tr>
+                    {% for i in "x"|ljust:9 %}
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="description">&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="totals">
+                <div class="row">
+                    <span>Tax (0%)</span>
+                    <span>{{ sale.total|floatformat:2 }}</span>
+                </div>
+                <div class="row total">
+                    <span>Total</span>
+                    <span>{{ sale.total|floatformat:2 }}</span>
+                </div>
+            </div>
+
+            <div class="download-btn-ctn">
+                <a href="#" class="download-btn">download invoice</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

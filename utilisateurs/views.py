@@ -104,7 +104,7 @@ def reset_password(request, email):
 
         if not password or not password_confirm:
             messages.error(request, 'passwords are required')
-            return render(request, 'reset_password.html', {'email': email})
+            return render(request, 'resetpassword.html', { 'email': email })
 
         if password == password_confirm:
             error_message = []
@@ -129,4 +129,4 @@ def reset_password(request, email):
         else:
             messages.error(request, 'passwords are different')
 
-    return render(request, 'reset_password.html', {'email': email})
+    return render(request, 'resetpassword.html', { 'email': email })
