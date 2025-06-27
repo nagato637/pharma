@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pharma',
     'utilisateurs',
     'commandes',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [

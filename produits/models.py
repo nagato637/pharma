@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -59,5 +61,15 @@ class Product(models.Model):
             'batch_number': self.batch_number,
             'expiry_date': self.expiryDate.isoformat(),
         }
+    
     def __str__(self):
         return self.name
+
+    def clean(self):
+        super().clean()
+
+        if self.expiryDate < timezone.now().date():
+            raise ValidationError(f'{self.name} est périmé et interdit à la vente')
+        
+        if self.reserved_quantity > self.quantity:
+            raise ValidationError('stock réservé supérieur au stock total')
