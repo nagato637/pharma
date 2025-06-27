@@ -1,12 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
-# from phonenumber_field.modelfields import PhoneNumberField
 
 class CustomUser(AbstractUser):
     USER_TYPE_CHOICES = ( ('CUSTOMER', 'customer'), ('PHARMACIST', 'pharmacist'), ('MANAGER', 'manager') )
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES, default='customer')
-    phone = PhoneNumberField(blank=True)
+    phone = CharField(max_length=20, blank=True)
 
     class Meta:
         permissions = [('can_view_dashboard'), ]
