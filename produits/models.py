@@ -57,7 +57,7 @@ class Product(models.Model):
             'name': self.name,
             'price': float(self.price),
             'batch_number': self.batch_number,
-            'expiryDate': self.expiryDate.isoformat(),
+            'expiry_date': self.expiryDate.isoformat(),
         }
     def __str__(self):
         return self.name

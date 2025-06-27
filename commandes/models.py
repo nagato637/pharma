@@ -2,12 +2,11 @@ import uuid
 from django.db import models
 from utilisateurs.models import Customer
 from produits.models import Product
-from django.utils import timezone
 
 class CartStatus(models.TextChoices):
     ACTIVE = 'ACTIVE', 'active'
     ABANDONED = 'ABANDONED', 'abandoned'
-    CANCELLED = 'CANCELLED', 'cancelled'
+    CONVERTED = 'CONVERTED', 'converted'
 
 class OrderStatus(models.TextChoices):
     PENDING = 'PENDING', 'pending'
