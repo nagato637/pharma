@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator
 from django.utils import timezone
 from utilisateurs.models import Customer
 from produits.models import Product
+import random
 
 class CartStatus(models.TextChoices):
     ACTIVE = 'ACTIVE', 'active'
@@ -28,7 +29,9 @@ class Cart(models.Model):
     class Meta:
         ordering = ['-created_at']
         verbose_name_plural = 'Carts'
-        indexes = [models.Index(fields=['status', 'expires_at']), ]
+        indexes = [
+            models.Index(fields=['status', 'expires_at'])
+        ]
 
     def __str__(self):
         return f'Cart {self.id.hex[:6]} for {self.customer.full_name}'
@@ -48,29 +51,28 @@ class CartItem(models.Model):
         return self.product.price * self.quantity
     
     def __str__(self):
-        return f'{self.quantity} x {self.product.name}'
+        return f'{self.quantity}x {self.product.name}'
 
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT, related_name='orders')
-    status = models.CharField(max_length=20, choices=OrderStatus.choices, default=OrderStatus.CREATED, verbose_name='statut')
+    status = models.CharField(max_length=20, choices=OrderStatus.choices, default=OrderStatus.CREATED)
     created_at = models.DateTimeField(auto_now_add=True)
     shipping_address = models.TextField(blank=True)
     payment_method = models.CharField(max_length=50, blank=True)
     prescription_required = models.BooleanField(default=False)
-    # cart_snapshot = models.JSONField(null=True, blank=True)
 
     class Meta:
         ordering = ['-created_at']
         verbose_name_plural = 'Orders'
-        permissions = [ ('can_manage_order') ]
+        permissions = [ ('can_manage_order', 'can manage orders') ]
 
     @property
     def total_price(self):
         return sum(item.total_price for item in self.items.all()) # type: ignore
 
     def __str__(self):
-        return f'Order : ORDER-{self.id.hex[:6].upper()} for {self.customer.full_name if self.customer else 'unknown customer'}'
+        return f'Order : ORDER-{self.id.hex[:6].upper()}-{random.randrange(100000, 999999)} for {self.customer.full_name if self.customer else 'unknown customer'}'
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
@@ -93,4 +95,4 @@ class OrderItem(models.Model):
         return self.unit_price * self.quantity
     
     def __str__(self):
-        return f'{self.quantity} x {self.product_name} in order : ORDER-{self.order.id.hex[:6].upper()}'
+        return f'{self.quantity} x {self.product_name}'

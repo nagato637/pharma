@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# settings.py
+AUTH_USER_MODEL = 'utilisateurs.CustomUser'
 
 # Application definition
 
@@ -42,7 +44,8 @@ INSTALLED_APPS = [
     'pharma',
     'utilisateurs',
     'commandes',
-    'phonenumber_field'
+    'phonenumber_field',
+    'django_q'
 ]
 
 MIDDLEWARE = [
@@ -116,6 +119,16 @@ USE_I18N = True
 
 USE_TZ = True
 
+# settings.py
+Q_CLUSTER = {
+    'name': 'pharma',
+    'workers': 4,
+    'timeout': 60,
+    'retry': 70,  # Doit être > timeout
+    'queue_limit': 50,
+    'bulk': 10,
+    'orm': 'default',
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
